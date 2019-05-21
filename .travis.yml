@@ -1,0 +1,27 @@
+dist: bionic
+language: generic
+sudo: required
+
+go:
+- stable
+
+services:
+- docker
+
+env:
+  global:
+  - secure: tsKoUtHkJHCg30KsbZJtT8l0Eh37nehBsnBnvh9e3RWLuQRxPCjqhrSpa33sOEWdkhzvqnq6nMWUej8TPRjAzsQjWOQVt7t48ZplKIkPzYdhqx1ExXvh85d5Nc8E8HhdsV8dSWnywxW78/yRTNZxoWB1yjBMcOdx0ewmFzuVGjuktYK461IdSgRwoWcWhlSVFjoqyvBpZS880gIMEpjAMFuZnlW8tCpUIfBhuXZ4zJINN0sdODXWqpdzXZgWzBmGtD+tHnk99dGjipu40DfzzewFK++LL9XFmkZvcBwzkBcB0kvEVqMaBe2isPXCG/LvDOR1OSgl08O30j+z8uA1HuB83FfFg6p+AOSXlfxEjlMOc15i9+b7LU+yNW+avF9rruUl52M18mrTLnbYTW6cCcl1bzMg/b3gbVq/E2htoA3L2KXAclZpD0EY3D7dwKEcmzvbuBE5NXXLueO7mr1HGAqdiItqJXD+4br11/CaARCxJTXE3j1kGRzOgMPOm9QYxuBWb5sgTMi1ywBISfmolv4xdh60g6DZGt3+64Bxr0Mw54FCrzkfLIOrj+ZXGF/38Vfba9riUAVcIqomZcfNeSr2MhgitOsysUMU7BSaXeR/1qUSUSJyM/0ACVJTSsLVhUwTuj+pKr88iRFC2ScgoNUU3LF2pEU5VI3KN5eiZ0I=
+  - secure: xYJhH1eFSrcB7uzJwRTUxJEjQ8baWJ5xVyp+p7NFnA6uy2BNi7qzh/81Dra4hX8G7OJd7vl2xYh7q8Sppep97XeACuVMWPDUWADcZm5SUbtZycHVkqWGzOYP1XRHbC1cjVlOcWBUMaj++iQdoekmVyqlLOdsKJ12bQTUL0K0xAMGJuhMJxrpfX/YLnKEmgNiBQGZQvdQr3UL7FAhCrBeUo8YJCiInLgZwqkARnCtkSIYqtLk6Niey3g8w64/AaHOh1jTje2a5xLtHCzZNkenZXlvPW0r3nF+bPI3xAwOSXX/LAYXPbeSptxxnK1KCmR7Gjc/0UImT/3dZOWtfg6a3GbAUef7hP4TBhaPheA1p/HxvAQAhHgsd2mlOxq7Sir8xnfVpnyYYa6fMrCHFXcR7wWyotziuidI7ZkzzuL4gZDhyTdL1bLm+Df1hO6sC60nQsNXuHGX0xHFcVH7OgDNUVG8kMYZKBTovKcQhh/pPRGI4iGe+o8CE6Bc2FYICsa6PXGk72MCFG/9E07ErGaasTwDJbiE8kcuOfUkJHGnHCXgS+DySa3VGvSRBmhWbZLkPIESoHcgAoJ1MZ3hkBvkmODrhPkRukHE1GI6Lwfty/al+dqVbOANQrdJ7dqCJPPY1DIfUyvsMoFKziRPWNR7Q2RwPrsTVfTldTMRfWg39Xc=
+
+install:
+- 'echo ''{ "experimental": true }'' | sudo tee /etc/docker/daemon.json'
+- sudo systemctl restart docker
+- sudo apt-get --yes --no-install-recommends install qemu-user-static
+- sudo apt-get --yes --no-install-recommends install awscli
+
+before_script:
+- sudo ./prepare-qemu.sh
+- chmod -R g-w ./
+
+script:
+- sh -x build.sh

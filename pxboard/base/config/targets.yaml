@@ -1,0 +1,40 @@
+Targets:
+  PXBoardQP4G:
+    Name: PXBoardQP4G
+    TargetImage: assets/images/PXBoardQP4G-latest.img
+    SkipUpdate: False
+    Assets:
+      BaseImage:
+        path: assets/images/PXBoardQP4G-latest.img
+        url: https://s3-us-west-1.amazonaws.com/pxlinux/LATEST/PXBoardQP4G-latest.img.zip
+      Packages:
+        path: assets/packages #All .pkg.tar.xz files and packages listed in pacman_packages.txt will be installed.
+      
+
+#  PXBoardQ:
+ #   Name: PXBoardQ
+ #   TargetImage: assets/images/PXBoardQ-latest.img
+ #   SkipUpdate: False
+ #   Assets:
+ #     BaseImage:
+ #       path: assets/images/PixieQCoreImage-2019-01-25.img
+ #       url: https://code-ing.com/pixierepo/release/images/latest/PixieQCoreImage.zip
+
+ # PXBoardDL:
+ #   Name: PXBoardDL
+ #   TargetImage: assets/images/PXBoardDL-latest.img
+ #   SkipUpdate: False
+ #   Assets:
+ #     BaseImage:
+ #       path: assets/images/PixieDLCoreImage-2019-01-25.img
+ #       url: https://code-ing.com/pixierepo/release/images/latest/PixieDLCoreImage.zip
+
+BuildCommand:
+  cmd: helper_scripts/build_img.sh
+  params:
+    - BaseImage
+    - TargetImage
+    - U-Boot
+    - RootFS
+    - Packages
+    - Scripts
